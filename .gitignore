@@ -24,7 +24,7 @@
 *.lai
 *.la
 *.a
-*.lib
+
 
 # Executables
 *.exe
@@ -33,4 +33,6 @@
 
 #Some folders
 Output
+Engine/x64
+Client/x64
 .vs
