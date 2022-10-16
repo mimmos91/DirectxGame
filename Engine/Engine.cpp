@@ -1,9 +1,5 @@
 #include "pch.h"
 #include "Engine.h"
-#include "Device.h"
-#include "SwapChain.h"
-#include "CommandQueue.h"
-#include "RootSignature.h"
 
 
 void Engine::Init(const WindowInfo& window)
@@ -25,13 +21,14 @@ void Engine::Init(const WindowInfo& window)
 	_rootSignature = make_shared<RootSignature>();
 	//_descHeap = make_shared<DescriptorHeap>();
 	_constantBuffer = make_shared<ConstantBuffer>();
+	_tableDescHeap = make_shared<TableDescriptorHeap>();
 
 	_device->Init();
 	_cmdQueue->Init(_device->GetDevice(), _swapChain);
 	_swapChain->Init(window,_device->GetDevice(), _device->GetDXGI(), _cmdQueue->GetCmdQueue());
 	_rootSignature->Init(_device->GetDevice());
 	_constantBuffer->Init(sizeof(Transform), 256); // 너무 늘어나면 효율적이지 않음
-
+	_tableDescHeap->Init(256);
 	//_descHeap->Init(_device->GetDevice(), _swapChain);
 
 }

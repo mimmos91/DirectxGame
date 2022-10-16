@@ -42,7 +42,7 @@ private:
 	HANDLE													_fenceEvent = INVALID_HANDLE_VALUE;
 
 	shared_ptr<SwapChain>							_swapChain;
-	shared_ptr<DescriptorHeap>					_descHeap; //back buffer 동작함
+	//shared_ptr<DescriptorHeap>					_descHeap; //back buffer 동작함
 
 };
 
