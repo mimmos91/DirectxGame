@@ -91,6 +91,14 @@ void Game::Update()
 
 	//{
 	//	Transform t;
+	//	t.offset = Vec4(0.f, -0.5f, 0.f, 0.f);
+	//	mesh->SetTransform(t);
+	//	mesh->Render();
+
+	//} // 괄호는 복붙을 편리하게 하려고 
+
+	//{
+	//	Transform t;
 	//	t.offset = Vec4(0.f, 0.5f, 0.f, 0.f);
 	//	mesh->SetTransform(t);
 	//	mesh->Render();
