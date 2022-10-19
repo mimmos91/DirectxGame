@@ -5,7 +5,7 @@
 
 CommandQueue::~CommandQueue()
 {
-	::CloseHandle(_fenceEvent); //ÀÌº¥Æ® È°¿ë ÈÄ ³¡³»¾ß µÊ. ¹¹ ¾ÈÇÑ´Ù°í ÇØµµ »ó°üÀº ¾øÀ½
+	::CloseHandle(_fenceEvent); //ì´ë²¤íŠ¸ í™œìš© í›„ ëë‚´ì•¼ ë¨. ë­ ì•ˆí•œë‹¤ê³  í•´ë„ ìƒê´€ì€ ì—†ìŒ
 }
 
 void CommandQueue::Init(ComPtr<ID3D12Device> device, shared_ptr<SwapChain> swapChain)
@@ -19,35 +19,35 @@ void CommandQueue::Init(ComPtr<ID3D12Device> device, shared_ptr<SwapChain> swapC
 
 	/*CreateCommandQueue(
 	 D3D12_COMMAND_QUEUE_DESC		*pDesc,				:
-     REFIID													riid,						: »ı¼ºÇÏ°íÀÚ ÇÏ´Â ¸í·É¸ñ·Ï¿¡ ÇØ´çÇÏ´Â ID3D12CommendList ÀÎÅÍÆäÀÌ½º COMID
- 	 void**													ppCommandList	: »ı¼ºµÈ ¸í·É ¸ñ·ÏÀ» °¡¸®Å°´Â Æ÷ÀÎÅÍ( Ãâ·Â ¸Å°³º¯¼ö)
+     REFIID													riid,						: ìƒì„±í•˜ê³ ì í•˜ëŠ” ëª…ë ¹ëª©ë¡ì— í•´ë‹¹í•˜ëŠ” ID3D12CommendList ì¸í„°í˜ì´ìŠ¤ COMID
+ 	 void**													ppCommandList	: ìƒì„±ëœ ëª…ë ¹ ëª©ë¡ì„ ê°€ë¦¬í‚¤ëŠ” í¬ì¸í„°( ì¶œë ¥ ë§¤ê°œë³€ìˆ˜)
 	 )*/
 	device->CreateCommandQueue(&queueDesc, IID_PPV_ARGS(&_cmdQueue));
 
 	/*CreateCommandQueue(
-	 D3D12_COMMAND_LIST_TYPE			type,							: ¸í·É ¸ñ·Ï Á¾·ù DIRECT or BUNDLE
-	 REFIID													riid,								: »ı¼ºÇÏ°íÀÚ ÇÏ´Â ¸í·É¸ñ·Ï¿¡ ÇØ´çÇÏ´Â ID3D12CommendList ÀÎÅÍÆäÀÌ½º COMID
-	 void**													ppCommandAllocator	: »ı¼ºµÈ ¸í·É ÇÒ´çÀÚ¸¦ °¡¸®Å°´Â Æ÷ÀÎÅÍ(Ãâ·Â¸Å°³º¯¼ö)
+	 D3D12_COMMAND_LIST_TYPE			type,							: ëª…ë ¹ ëª©ë¡ ì¢…ë¥˜ DIRECT or BUNDLE
+	 REFIID													riid,								: ìƒì„±í•˜ê³ ì í•˜ëŠ” ëª…ë ¹ëª©ë¡ì— í•´ë‹¹í•˜ëŠ” ID3D12CommendList ì¸í„°í˜ì´ìŠ¤ COMID
+	 void**													ppCommandAllocator	: ìƒì„±ëœ ëª…ë ¹ í• ë‹¹ìë¥¼ ê°€ë¦¬í‚¤ëŠ” í¬ì¸í„°(ì¶œë ¥ë§¤ê°œë³€ìˆ˜)
 	 )*/
 	device->CreateCommandAllocator(D3D12_COMMAND_LIST_TYPE_DIRECT, IID_PPV_ARGS(&_cmdAlloc));
 
 
 	/*CreateCommandList(
-	 UINT												nodeMask,					:GPU°¡ ÇÏ³ªÀÎ ½Ã½ºÅ×¿¡¼­´Â 0À¸·Î
-	 D3D12_COMMAND_LIST_TYPE		type,							: ¸í·É ¸ñ·Ï Á¾·ù DIRECT or BUNDLE
-	 ID3D12CommandAllocator*			pCommandAllocator,	: »ı¼ºµÈ ¸í·É ¸ñ·Ï¿¡ ¿¬°ü½ÇÅ³ ÇÒ´çÀÚ ALLOCATOR
-	 ID3D12PipelineState*						pInitialState,				: ¸í·É ¸ñ·ÏÀÇ ÃÊ±â ÆÄÀÌÇÁ¶óÀÎ »óÅÂ ÁöÁ¤(±×¸®±â¸í·É x nullptr)
-	 REFIID												riid,								: »ı¼ºÇÏ°íÀÚ ÇÏ´Â ¸í·É¸ñ·Ï¿¡ ÇØ´çÇÏ´Â ID3D12CommendList ÀÎÅÍÆäÀÌ½º COMID
-	 void**												ppCommandList			: »ı¼ºµÈ ¸í·É ¸ñ·ÏÀ» °¡¸®Å°´Â Æ÷ÀÎÅÍ( Ãâ·Â ¸Å°³º¯¼ö)
+	 UINT												nodeMask,					:GPUê°€ í•˜ë‚˜ì¸ ì‹œìŠ¤í…Œì—ì„œëŠ” 0ìœ¼ë¡œ
+	 D3D12_COMMAND_LIST_TYPE		type,							: ëª…ë ¹ ëª©ë¡ ì¢…ë¥˜ DIRECT or BUNDLE
+	 ID3D12CommandAllocator*			pCommandAllocator,	: ìƒì„±ëœ ëª…ë ¹ ëª©ë¡ì— ì—°ê´€ì‹¤í‚¬ í• ë‹¹ì ALLOCATOR
+	 ID3D12PipelineState*						pInitialState,				: ëª…ë ¹ ëª©ë¡ì˜ ì´ˆê¸° íŒŒì´í”„ë¼ì¸ ìƒíƒœ ì§€ì •(ê·¸ë¦¬ê¸°ëª…ë ¹ x nullptr)
+	 REFIID												riid,								: ìƒì„±í•˜ê³ ì í•˜ëŠ” ëª…ë ¹ëª©ë¡ì— í•´ë‹¹í•˜ëŠ” ID3D12CommendList ì¸í„°í˜ì´ìŠ¤ COMID
+	 void**												ppCommandList			: ìƒì„±ëœ ëª…ë ¹ ëª©ë¡ì„ ê°€ë¦¬í‚¤ëŠ” í¬ì¸í„°( ì¶œë ¥ ë§¤ê°œë³€ìˆ˜)
 	)*/	
 	device->CreateCommandList(0, D3D12_COMMAND_LIST_TYPE_DIRECT, _cmdAlloc.Get(), nullptr, IID_PPV_ARGS(&_cmdList));
 	
-	// CommandList´Â Close / Open »óÅÂ°¡ ÀÖ´Âµ¥
-	// Open »óÅÂ¿¡¼­ Command¸¦ ³Ö´Ù°¡ CloseÇÑ ´ÙÀ½ Á¦ÃâÇÏ´Â °³³ä
+	// CommandListëŠ” Close / Open ìƒíƒœê°€ ìˆëŠ”ë°
+	// Open ìƒíƒœì—ì„œ Commandë¥¼ ë„£ë‹¤ê°€ Closeí•œ ë‹¤ìŒ ì œì¶œí•˜ëŠ” ê°œë…
 	_cmdList->Close();
 
 	//CreateFence
-	//-CPU¿Í GPU µ¿±âÈ­ ¼ö´Ü
+	//-CPUì™€ GPU ë™ê¸°í™” ìˆ˜ë‹¨
 	device->CreateFence(0, D3D12_FENCE_FLAG_NONE, IID_PPV_ARGS(&_fence));
 	_fenceEvent = ::CreateEvent(nullptr, FALSE, FALSE, nullptr);
 
@@ -55,7 +55,7 @@ void CommandQueue::Init(ComPtr<ID3D12Device> device, shared_ptr<SwapChain> swapC
 
 void CommandQueue::WaitSync()
 {
-	//¸ÖÆ¼½º·¹µå °°Àº °Å µ¿±âÈ­´Ï±î cpu°¡ GPU ÀÏÇÒ¶§±îÁö ±â´Ù·È´Ù°¡ ´Ù½Ã ½ÃÀÛÇÏ´Â °Í
+	//ë©€í‹°ìŠ¤ë ˆë“œ ê°™ì€ ê±° ë™ê¸°í™”ë‹ˆê¹Œ cpuê°€ GPU ì¼í• ë•Œê¹Œì§€ ê¸°ë‹¤ë ¸ë‹¤ê°€ ë‹¤ì‹œ ì‹œì‘í•˜ëŠ” ê²ƒ
 	// 
 	// Advance the fence value to mark commands up to this fence point.
 	_fenceValue++;
@@ -79,13 +79,13 @@ void CommandQueue::WaitSync()
 
 void CommandQueue::RenderBegin(const D3D12_VIEWPORT* vp, const D3D12_RECT* rect)
 {
-	_cmdAlloc->Reset(); // ±âÁ¸°Í Å¬¸®¾î
+	_cmdAlloc->Reset(); // ê¸°ì¡´ê²ƒ í´ë¦¬ì–´
 	_cmdList->Reset(_cmdAlloc.Get(), nullptr);
 
 	D3D12_RESOURCE_BARRIER barrier = CD3DX12_RESOURCE_BARRIER::Transition(
 		_swapChain->GetBackRTVBuffer().Get(),
-		D3D12_RESOURCE_STATE_PRESENT, // È­¸é Ãâ·Â
-		D3D12_RESOURCE_STATE_RENDER_TARGET); // ¿ÜÁÖ °á°ú¹°
+		D3D12_RESOURCE_STATE_PRESENT, // í™”ë©´ ì¶œë ¥
+		D3D12_RESOURCE_STATE_RENDER_TARGET); // ì™¸ì£¼ ê²°ê³¼ë¬¼
 
 	_cmdList->SetGraphicsRootSignature(ROOT_SIGNATURE.Get());
 	GEngine->GetConstantBuffer()->Clear();
@@ -111,13 +111,13 @@ void CommandQueue::RenderEnd()
 {
 	D3D12_RESOURCE_BARRIER barrier = CD3DX12_RESOURCE_BARRIER::Transition(
 		_swapChain->GetBackRTVBuffer().Get(),
-		D3D12_RESOURCE_STATE_RENDER_TARGET, // ¿ÜÁÖ °á°ú¹°
-		D3D12_RESOURCE_STATE_PRESENT); // È­¸é Ãâ·Â -> µÚ¿¡ÀÖ´Â °É ¾ÕÀ¸·Î ¿Å±è Áï swap.
+		D3D12_RESOURCE_STATE_RENDER_TARGET, // ì™¸ì£¼ ê²°ê³¼ë¬¼
+		D3D12_RESOURCE_STATE_PRESENT); // í™”ë©´ ì¶œë ¥ -> ë’¤ì—ìˆëŠ” ê±¸ ì•ìœ¼ë¡œ ì˜®ê¹€ ì¦‰ swap.
 
 	_cmdList->ResourceBarrier(1, &barrier);
 	_cmdList->Close();
 
-	// Ä¿¸Çµå ¸®½ºÆ® ¼öÇà
+	// ì»¤ë§¨ë“œ ë¦¬ìŠ¤íŠ¸ ìˆ˜í–‰
 	ID3D12CommandList* cmdListArr[] = { _cmdList.Get() };
 	_cmdQueue->ExecuteCommandLists(_countof(cmdListArr), cmdListArr);
 
@@ -129,4 +129,5 @@ void CommandQueue::RenderEnd()
 	WaitSync();
 
 	_swapChain->SwapIndex();
+	//ìˆ˜ì • ê°€ëŠ¥í•¨??
 }
